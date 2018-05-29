@@ -2,8 +2,14 @@
 
 {% block title %} My Group {% endblock %}
 
+
+{% block navbar %}
 <!-- navbar text -->
-{% block navbar %}<span class="navbar-text">My Group</span>{% endblock %}
+<span class="navbar-text">My Group</span>
+
+<!-- Login button -->
+<a href="/login" id="login_btn" class="btn">login</a>
+{% endblock %}
 
 
 {% block main %}

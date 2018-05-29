@@ -16,3 +16,4 @@ Javascript/HTML/CSS frontend
 
 flask sqlalchemy talks to the database for me
 Gunicorn is the production web server on Heroku
+sessions are stored client side using cookies that store only the user id from the database.
