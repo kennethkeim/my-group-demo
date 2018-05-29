@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+
+{% block title %} My Group Directory {% endblock %}
+
+
+{% block navbar %}
+<!-- Events and Directory buttons -->
+<form class="form-inline" action="/" method="get">
+    <button type="submit" class="btn" id="evbtn"><i class="far fa-calendar-alt"></i> Events</button>
+</form>
+<form class="form-inline" action="/directory" method="get">
+    <button type="submit" class="btn" id="dirbtn"><i class="far fa-address-card"></i> Directory</button>
+</form>
+{% endblock %}
+
+
+{% block navbar_nav %}
+<!-- Logout button -->
+<li class="nav-item">
+    <form class="form-inline" action="/logout" method="get">
+        <button type="submit" class="btn mt-3 mt-sm-auto" id="logout_btn"><i class="fas fa-sign-out-alt"></i> logout</button>
+    </form>
+</li>
+{% endblock %}
+
+
+{% block main %}
+<!-- List of all the contacts -->
+<div class='container'>
+    <h1>People</h1>
+    <ul class='list-group' id='dir_list_group'>
+        <div class='row justify-content-center'>
+
+            <!-- iterate over each contact -->
+            {% for contact in contacts %}
+                <div class='col-md-7 col-sm-8'>
+                    <li class='list-group-item dir_li'>
+                        <h6 class='dir_li_h6'>{{ contact.last_name }}, {{ contact.first_name }}</h6>
+                        {% if contact.email %}
+                            <a href='mailto:{{ contact.email }}' target='_blank'>{{ contact.email }}</a>
+                            <br>
+                        {% endif %}
+                        <!-- if there is a seconary phone number, assign the male female images/icons to the corresponding number -->
+                        <!-- secondary phone number always means it's a couple -->
+                        {% if contact.phone1 %}
+                            <a href='tel:{{ contact.phone0 }}' target='_blank'>
+                                <img src="{{ url_for('static', filename='images/male.png') }}"> {{ contact.phone0 }}
+                            </a>
+                            <a href='tel:{{ contact.phone1 }}' target='_blank'>
+                                <img src="{{ url_for('static', filename='images/female.png') }}"> {{ contact.phone1 }}
+                            </a>
+                        {% endif %}
+                        <!-- else just show the primary phone number -->
+                        {% if not contact.phone1 %}
+                            <a href='tel:{{ contact.phone0 }}' target='_blank'>{{ contact.phone0 }}</a>
+                        {% endif %}
+                        <p>
+                            {{ contact.addr_line1 }}
+                            {% if contact.addr_line2 %}
+                                <br>
+                                {{ contact.addr_line2 }}
+                            {% endif %}
+                            <br>
+                            {{ contact.city }}, {{ contact.state }} {{ contact.postal }}
+                        </p>
+                    </li>
+                </div>
+            {% endfor %}
+
+
+        </div>
+    </ul>
+</div>
+{% endblock %}

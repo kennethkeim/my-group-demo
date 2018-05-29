@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8"> <!-- required by Bootstrap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no"> <!-- required by Bootstrap -->
+
+    <!-- Bootstrap CSS, Google fonts, Font Awesome, and my own CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Yantramanav:700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+
+    <!-- that favicon thing -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+
+    <!-- Add to home screen for Safari on iOS -->
+    <!-- the icon sizes included are for all iphone and ipad models home screen sizes -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="apple-mobile-web-app-title" content="Door of Hope">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/ios/180.png') }}" sizes="180x180">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/ios/167.png') }}" sizes="167x167">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/ios/152.png') }}" sizes="152x152">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/ios/120.png') }}" sizes="120x120">
+
+
+    <!-- icon sizes for android -->
+    <link rel="icon" href="{{ url_for('static', filename='images/android/a512.png') }}" sizes="512x512">
+    <link rel="icon" href="{{ url_for('static', filename='images/android/a192.png') }}" sizes="192x192">
+    <link rel="icon" href="{{ url_for('static', filename='images/android/a144.png') }}" sizes="144x144">
+    <link rel="icon" href="{{ url_for('static', filename='images/android/a96.png') }}" sizes="96x96">
+    <link rel="icon" href="{{ url_for('static', filename='images/android/a72.png') }}" sizes="72x72">
+    <link rel="icon" href="{{ url_for('static', filename='images/android/a48.png') }}" sizes="48x48">
+    <link rel="icon" href="{{ url_for('static', filename='images/android/a36.png') }}" sizes="36x36">
+
+    <!-- recomended by Google's lighthouse -->
+    <meta name="theme-color" content="#0a3d62">
+
+    <!-- Web app manifest -->
+    <link rel="manifest" href=" {{ url_for('static', filename='manifest.webmanifest') }}">
+
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<!-- id for overiding Bootstrap -->
+<body id="overide">
+
+    <!-- navbar -->
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark" style="background-color: #e8e8e8;">
+        {% block navbar %}{% endblock %}
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span><i class="fas fa-bars"></i></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                {% block navbar_nav %}{% endblock %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- All the modals for the events page are here -->
+    {% block modals %}{% endblock %}
+
+    <!-- Main contents of all pages -->
+    {% block main %}{% endblock %}
+
+
+
+
+    <!-- Bootstrap jQuery, Bootstrap Popper.js, Bootstrap Javascript, and my own Javascript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="static/scripts.js"></script>
+</body>
+</html>

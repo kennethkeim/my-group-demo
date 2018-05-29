@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %} My Group {% endblock %}
+
+<!-- navbar text -->
+{% block navbar %}<span class="navbar-text">My Group</span>{% endblock %}
+
+
+{% block main %}
+<!-- display messages for login and register pages -->
+<div class="container" id="message_pg">
+    <h3>{{ code }}</h3>
+    <p>{{ message }}</p>
+</div>
+{% endblock %}

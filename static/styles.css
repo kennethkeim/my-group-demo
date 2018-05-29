@@ -1,0 +1,440 @@
+
+
+/********************* Body *********************/
+
+
+body
+{
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 110px 0px 40px 0px;
+    text-align: center;
+    color: #0a3d62;
+}
+
+#message_pg
+{
+    color: #0a3d62;
+}
+
+/* the h1 on directory, login, and register pages */
+h1
+{
+    color: #0a3d62;
+    font-family: 'Yantramanav', sans-serif;
+    font-size: 3em;
+    font-weight: 700;
+    text-align: center;
+}
+
+
+
+
+/********************* Navbar *********************/
+
+/* the navbar text on register, login, and messages pages */
+.navbar .navbar-text
+{
+    color: #0a3d62;
+    font-family: 'Yantramanav', sans-serif;
+    font-weight: 500;
+    font-size: 1.5em;
+}
+
+
+
+
+/********************* EVENTS PAGE: List-Groups *********************/
+
+
+/* all event types: containing li */
+.allev_li
+{
+    background: #e8e8e8;
+    color: #000000;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-style: none;
+    border-radius: 2px;
+}
+
+/* readable date */
+#overide .ev_li_date
+{
+    font-weight: 600;
+    color: #0a3d62;
+}
+
+/* title */
+.ev_li_h6
+{
+    margin: 0 auto 0 auto;
+    padding: 5px;
+    font-weight: 500;
+    font-size: .85em;
+}
+
+/* time and location */
+.ev_li_time,
+.ev_li_location
+{
+    font-size: .8em;
+    padding: 0 auto 2px auto;
+}
+
+/* notes */
+.ev_li_notes
+{
+    font-size: .7em;
+    padding: 0 10px 2px 10px;
+    margin: 0 auto 0 auto;
+}
+
+/* month header: containing li */
+.ev_li-month
+{
+    border-style: none;
+    padding-top: 70px;
+}
+
+/* month header: h3 */
+.month
+{
+    font-size: 2.9em;
+    color: #0a3d62;
+    font-family: 'Yantramanav', sans-serif;
+    font-weight: 700;
+}
+
+
+
+
+/********************* DIRECTORY PAGE: List-Groups *********************/
+
+
+/* list-group on the directory page */
+#dir_list_group
+{
+    margin-top: 40px;
+}
+
+/* all li elements */
+.dir_li
+{
+    color: #0a3d62;
+    border: 2px solid #0a3d62;
+    margin: 10px 0px 10px 0px;
+    padding-bottom: 2px;
+    border-radius: 3px;
+}
+
+/* first and last names of all the contacts */
+.dir_li_h6
+{
+    font-weight: 600;
+    font-size: 1.1em;
+    color: #0a3d62;
+}
+
+/* the email and phone links */
+.dir_li a
+{
+    font-size: .9em;
+    color: #0a3d62;
+    text-decoration: underline;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+#overide .dir_li a:hover
+{
+    color: #0000ee;
+    text-decoration: underline;
+}
+
+/* the address */
+.dir_li p
+{
+    margin-top: 10px;
+    color: #0a3d62;
+    background: #e8e8e8;
+    border-radius: 3px;
+    padding: 5px;
+    font-size: .9em;
+}
+
+/* male and female image/icons */
+.dir_li img
+{
+    width: 17px;
+    height: 17px;
+    margin-bottom: 2px;
+}
+
+
+/********************* Modals *********************/
+
+
+/* add/edit event modal */
+#addev_modal .modal-header
+{
+    border-style: none;
+}
+#addev_modal .modal-content
+{
+    color: #0a3d62;
+}
+#time
+{
+    /* to prevent safari's nonsensical collapsing */
+    height: 35px;
+}
+.label_primary
+{
+    margin: 0px auto 2px auto;
+    padding: 0px auto 0px auto;
+}
+.label_help
+{
+    font-style: italic;
+}
+
+
+/* response and confirm delete modals */
+#response_modal p,
+#del_modal .modal-body p
+{
+    text-align: center;
+    color: #0a3d62;
+}
+#response_modal .modal-header,
+#del_modal .modal-header
+{
+    border-style: none;
+}
+
+/* response modal: label help text */
+#response_modal small
+{
+    text-align: center;
+    margin-bottom: 15px;
+    font-style: italic;
+    color: grey;
+}
+
+
+
+
+/********************* Forms *********************/
+
+
+/* login and register forms */
+#login_form,
+#register_form
+{
+    color: #0a3d62;
+    margin-top: 50px;
+}
+#login_form .form-control,
+#register_form .form-control
+{
+    border-radius: 20px;
+}
+
+#addev_form
+{
+    text-align: left;
+}
+
+
+
+
+/********************* Buttons *********************/
+
+
+/* directory and event buttons */
+#dirbtn, #evbtn
+{
+    background: #e8e8e8;
+    color: #0a3d62;
+
+    border: 2px solid #0a3d62;
+    border-radius: 20px;
+    margin: 0px 3px 0px 3px;
+}
+
+/* directory and event buttons: hover */
+#dirbtn:hover,
+#evbtn:hover
+{
+    background: #0a3d62;
+    color: #ffffff;
+}
+
+/* directory and event buttons: active */
+#dirbtn.active,
+#evbtn.active
+{
+    background: #0a3d62;
+    color: #ffffff;
+}
+
+/* navbar toggler */
+.navbar-toggler span
+{
+    color: #0a3d62;
+    font-size: 1.8em;
+}
+
+/* everything except directory and event buttons */
+.navbar-nav #addev_btn,
+#login_btn,
+#register_btn,
+.navbar-nav #logout_btn
+{
+    background: #e8e8e8;
+    color: #0a3d62;
+    border-style: none;
+    margin: 0px 3px 0px 3px;
+}
+
+/* everything except directory and event buttons: hover */
+.navbar-toggler span:hover,
+.navbar-nav #addev_btn:hover,
+#login_btn:hover,
+#register_btn:hover,
+.navbar-nav #logout_btn:hover
+{
+    color: #36607E;
+    background: #e8e8e8;
+}
+
+/* ALL THE BUTTONS and toggler: focus */
+.navbar-toggler:focus,
+#addev_btn:focus,
+#dirbtn:focus,
+#evbtn:focus,
+.allev_btn:focus,
+#overide .close:focus,
+#login_btn:focus,
+#register_btn:focus,
+.navbar-nav #logout_btn:focus
+{
+    outline: 0;
+    outline-offset: 0;
+    background-image: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+
+
+/* all a tags containing events */
+#overide .allev_btn
+{
+    background: #0a3d62;
+    color: #ffffff;
+    display: block;
+    margin: 5px auto 5px auto;
+    padding: 0px 5px 1px 5px;
+    border-radius: 3px;
+    width: 80%;
+    border-style: none;
+}
+#overide a:hover
+{
+    text-decoration: none;
+}
+
+
+
+/* add/edit event modal buttons */
+#addev_modal .btn,
+#login_form .btn,
+#register_form .btn
+{
+    background: #0a3d62;
+    color: #ffffff;
+
+    border-radius: 20px;
+    display: block;
+    width: 30%;
+    margin: 0 auto 0 auto;
+}
+#addev_modal .btn:hover,
+#login_form .btn:hover,
+#register_form .btn:hover
+{
+    background: #204E70;
+}
+#addev_modal .close
+{
+    color: red;
+}
+
+
+
+/* delete confirm modal buttons */
+#del_buttons
+{
+    width: 100%;
+    margin: 0 auto 15px auto;
+    text-align: center;
+}
+#del_confirm
+{
+    background: #d63031;
+    color: #ffffff;
+    margin-left: 5px;
+    border-radius: 20px;
+    padding: 5px 20px 5px 20px;
+}
+#del_nope
+{
+    background: #0a3d62;
+    color: #ffffff;
+    margin-right: 5px;
+    border-radius: 20px;
+    padding: 5px 20px 5px 20px;
+}
+
+/* response and confirm delete modals: close icon */
+#del_modal .close,
+#response_modal .close
+{
+    color: red;
+}
+
+
+
+
+/* popover edit button */
+.popover-body #edit_pop_btn
+{
+    margin-right: 5px;
+    border-style: none;
+    background: #0a3d62;
+    color: #ffffff;
+    padding: 5px 15px 5px 15px;
+    border-radius: 20px;
+}
+
+/* popover delete button */
+.popover-body #del_pop_btn
+{
+    margin-left: 5px;
+    border-style: none;
+    background: #d63031;
+    color: #ffffff;
+    padding: 5px 15px 5px 15px;
+    border-radius: 20px;
+}
+
+
+
+
+
+
+
+
+
+/**/
