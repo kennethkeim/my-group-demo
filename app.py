@@ -32,7 +32,7 @@ def after_request(response):
 
 
 # configure client side sessions using cookies
-app.config["SECRET_KEY"] = "q6{s#JsdsrEGs93V"
+app.config["SECRET_KEY"] = "J#7KazuNps/k8U2z"
 app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(days=90)
 
 
