@@ -1,6 +1,7 @@
-from flask import Flask, session
+from flask import Flask, session, redirect
 from functools import wraps
 import datetime
+import os
 
 app = Flask(__name__)
 
@@ -9,7 +10,7 @@ from dbModels import Users, Contacts, Events
 
 
 # configure client side sessions using cookies
-app.config["SECRET_KEY"] = "J#7KazuNps/k8U2z"
+app.config["SECRET_KEY"] = os.environ['SECRET_KEY']
 app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(days=90)
 
 
