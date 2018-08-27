@@ -8,9 +8,9 @@ flask = "*"
 flask-sqlalchemy = "*"
 "psycopg2-binary" = "*"
 python-dotenv = "*"
-gunicorn = "*"
+flask-session = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"

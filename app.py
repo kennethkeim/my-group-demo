@@ -32,7 +32,7 @@ def after_request(response):
 
 
 # configure client side sessions using cookies
-app.config["SECRET_KEY"] = "J#7KazuNps/k8U2z"
+app.config["SECRET_KEY"] = os.environ['SECRET_KEY']
 app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(days=90)
 
 
@@ -134,6 +134,7 @@ def events():
     """Render events page"""
 
     # retrieve all events from database
+    # if I allowed users to filter events by type, i could pass in those parameters and use them to filter the results returned by the database
     events = Events.query.order_by(Events.date).all()
 
     # prep
@@ -313,7 +314,7 @@ def register():
 
         # check if username and password were submitted
         if not request.form.get("username") or not request.form.get("password"):
-            return render_template("messages.html", code=400 , message="Please provide username and password"), 400
+            return render_template("messages.html", code=400 , message="Please provide email and password"), 400
 
         # check if name submitted
         elif not request.form.get("first_name"):
@@ -326,7 +327,7 @@ def register():
         # check if username already exists in database
         exists = Users.query.filter_by(username=request.form.get("username")).first()
         if exists:
-            return render_template("messages.html", code=400 , message="Sorry, that username is taken, please choose something else"), 400
+            return render_template("messages.html", code=400 , message="That email is already registered, please login or register with a different email"), 400
 
         # store all user info in database, initialize approval to False
         first_name = request.form.get("first_name")
@@ -366,14 +367,14 @@ def login():
 
         # Ensure username and password were submitted
         if not request.form.get("username") or not request.form.get("password"):
-            return render_template("messages.html", code=400, message="Please provide username and password"), 400
+            return render_template("messages.html", code=400, message="Please provide email and password"), 400
 
         username = request.form.get("username")
 
         # Query database for username
         user = Users.query.filter_by(username=username).first()
         if not user:
-            return render_template("messages.html", code=400, message="Sorry, invalid username"), 400
+            return render_template("messages.html", code=400, message="Sorry, invalid email"), 400
 
         # Ensure password is correct
         elif not check_password_hash(user.pwd_hash, request.form.get("password")):
