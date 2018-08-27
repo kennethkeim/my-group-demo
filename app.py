@@ -1,4 +1,4 @@
-from flask import Flask, session, redirect
+from flask import Flask, session, redirect, request
 from functools import wraps
 import datetime
 import os
@@ -14,13 +14,13 @@ app.config["SECRET_KEY"] = os.environ['SECRET_KEY']
 app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(days=90)
 
 
-## require app to always redirect to https
-# @app.before_request
-# def before_request():
-#     if request.url.startswith('http://'):
-#         url = request.url.replace('http://', 'https://', 1)
-#         code = 301
-#         return redirect(url, code=code)
+# require app to always redirect to https
+@app.before_request
+def before_request():
+    if request.url.startswith('http://'):
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return redirect(url, code=code)
 
 
 # Middleware from Harvard's CS50 staff code ---------------------------------------------------
