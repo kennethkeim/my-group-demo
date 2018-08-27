@@ -1,3 +1,8 @@
+########################################################################
+# implement a calendar and directory web app for a community group
+########################################################################
+
+
 from flask import Flask, session, redirect, request
 from functools import wraps
 import datetime
@@ -15,6 +20,7 @@ app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(days=90)
 
 
 # require app to always redirect to https
+# SSL cert is provided by Heroku
 @app.before_request
 def before_request():
     if request.url.startswith('http://'):
@@ -23,7 +29,7 @@ def before_request():
         return redirect(url, code=code)
 
 
-# Middleware from Harvard's CS50 staff code ---------------------------------------------------
+# Middleware from Harvard's CS50 staff ------------------------------------------------------------------------------------
 # Ensure responses aren't cached
 @app.after_request
 def after_request(response):
@@ -45,12 +51,12 @@ def login_required(f):
             return redirect("/login")
         return f(*args, **kwargs)
     return decorated_function
-# Middleware from Harvard's CS50 staff code ----------------------------------------------------
+# Middleware from Harvard's CS50 staff -------------------------------------------------------------------------------------
 
 
-# Global variable
+# Global variables
 months = ["","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-
+currentYear = 2018 # oh, shut up, it's my first real web app :)
 
 # ROUTES
 import routes

@@ -1,16 +1,20 @@
+##################################################################
+# routes
+##################################################################
+
+
+# import external dependancies
 from flask import render_template, jsonify, request, redirect, session
 from werkzeug.security import check_password_hash, generate_password_hash
 import datetime
 import re
 
-
-from app import app
-from app import login_required
-from app import months
+# import my own modules
+from app import app, login_required, months, currentYear
 from dbModels import Users, Contacts, Events, db
 
 
-
+# Render events page
 @app.route("/")
 @login_required
 def events():
@@ -26,12 +30,11 @@ def events():
     month_headers = [True, False, False, False, False, False, False, False, False, False, False, False, False]
 
 
-    ####################################################################################################################################
+    # -------------------------------------------------------------------------------------------------------------------------------
     # iterating over each event
     # parse the data: create an element on the array for every day that has one or more events
     # (each element will be an HTML list item)
-    ####################################################################################################################################
-
+    # -------------------------------------------------------------------------------------------------------------------------------
     for event in events:
 
         # if the current month has not yet been appended to the array (will be a header on the page)
@@ -54,7 +57,7 @@ def events():
         index = (len(list_items) - 1) # calculate 'cwi'
 
         # append current event to the 'cwi' of the array
-        # this will create an '<a>' element for each event (inside the '<li>')
+        # this will create an '<a>' element for each event
         list_items[index] += f"<a href='#' name='{event.type}' class='allev_btn' id='{event.id}' role='button' data-toggle='popover' tabindex='0'><h6 class='ev_li_h6'>{event.title}"
         if event.type == "anniversary":
             list_items[index] += " <i class='fas fa-heart'></i></h6>"
@@ -76,10 +79,7 @@ def events():
         # save the current event date for the next iteration of the loop
         prev_date = event.date
 
-        ################################################################################################################################
-        # iteration over each event ends
-        ################################################################################################################################
-
+        # iteration over each event ends ---------------------------------------------------------------------------------------------
 
     # pass data to events.html
     return render_template("events.html", list_items=list_items)
@@ -88,23 +88,21 @@ def events():
 
 
 
-
+# Render directory page
 @app.route("/directory")
 @login_required
 def directory():
     """Render directory page"""
 
-    # save all contacts in temp
+    # get all contacts and render them on the directory page
     contacts = Contacts.query.order_by(Contacts.last_name).all()
-
-    # pass data to directory.html
     return render_template("directory.html", contacts=contacts)
 
 
 
 
-
-
+# Add or edit an event
+# (what's REST anyways?)
 @app.route("/addev", methods=["POST"])
 @login_required
 def addev():
@@ -136,9 +134,9 @@ def addev():
         notes = request.form.get("notes")
 
     # format and save 'date' (only current year allowed for now)
-    cur_year = 2018
+    # cur_year = 2018
     try:
-        date = datetime.date(cur_year, month_num, day_num)
+        date = datetime.date(currentYear, month_num, day_num)
     except (ValueError, TypeError):
         return "Sorry, this date isn't valid. Make sure you didn't select something like: 'February 30'", 400
 
@@ -176,7 +174,7 @@ def addev():
 
 
 
-
+# Delete an event
 @app.route("/delev", methods=["POST"])
 @login_required
 def delev():
@@ -196,7 +194,7 @@ def delev():
 
 
 
-
+# Register user
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
@@ -249,8 +247,10 @@ def register():
 
 
 
-
-# partly CS50 staff code below --------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------------------------
+# part of the routes below were written by CS50 staff
+#---------------------------------------------------------------------------------------------------------------------
+# Log user in
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
@@ -294,7 +294,7 @@ def login():
 
 
 
-
+# Log user out
 @app.route("/logout")
 def logout():
     """Log user out"""
