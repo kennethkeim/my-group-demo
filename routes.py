@@ -238,7 +238,7 @@ def register():
 
         # send message telling user to wait for approval
         # javascript will 'redirect' to another page and display message
-        return render_template("messages.html", code='Success' , message="Thanks for registering, your info is saved, and you will be able to login as soon as you are approved. If you haven't yet, let Kenny know you registered so he can give you access."), 200
+        return render_template("messages.html", code='Success' , message="Thanks for registering, your info is saved, and you will be able to login as soon as you are approved. If you haven't yet, contact Kenneth so he can give you access."), 200
 
     else:
         # render page via which user can register
