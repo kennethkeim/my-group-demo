@@ -189,9 +189,31 @@
 {% endblock %}
 
 
+
+<!-- left side nav -->
+{% block side_nav %}
+<div id="side_nav">
+   <a href="#January">January</a><br>
+   <a href="#February">February</a><br>
+   <a href="#March">March</a><br>
+   <a href="#April">April</a><br>
+   <a href="#May">May</a><br>
+   <a href="#June">June</a><br>
+   <a href="#July">July</a><br>
+   <a href="#August">August</a><br>
+   <a href="#September">September</a><br>
+   <a href="#October">October</a><br>
+   <a href="#November">November</a><br>
+   <a href="#December">December</a><br>
+</div>
+
+{% endblock %}
+
+
+
 {% block main %}
 <!-- All the events -->
-<div class='container'>
+<div class='container' id="ev_contain<br>
     <ul class="list-group">
         <div class="row justify-content-center">
             {% for li in list_items %}
