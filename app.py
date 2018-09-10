@@ -2,7 +2,6 @@
 # implement a calendar and directory web app for a community group
 ########################################################################
 
-
 from flask import Flask, session, redirect, request
 from functools import wraps
 import datetime
@@ -11,7 +10,6 @@ import os
 app = Flask(__name__)
 
 from dbModels import Users, Contacts, Events
-
 
 
 # configure client side sessions using cookies
@@ -38,6 +36,7 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
+
 # Decorate routes to require login.
 def login_required(f):
     """
@@ -56,7 +55,7 @@ def login_required(f):
 
 # Global variables
 months = ["","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-currentYear = 2018 # oh, shut up, it's my first real web app :)
+currentYear = 2018 # don't judge, it's my first real web app :)
 
 # ROUTES
 import routes

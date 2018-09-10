@@ -125,7 +125,7 @@ $('a.allev_btn').on('click', function(e){
 
 
 
-// add/edit event handler: do appropriate (server-side) stuff upon form submission
+// add/edit event form submission handler
 $('#addev_form').on('submit', function(e){
      e.preventDefault();
      $('#addev_modal').modal('hide');
@@ -145,7 +145,7 @@ $('#addev_form').on('submit', function(e){
 
 
 
-// confirm delete handler: do server things when clicked (i.e. delete aforementioned event)
+// delete event form submission handler
 $('#del_confirm').on('click', function(){
      $.ajax({
          url: "/delev",

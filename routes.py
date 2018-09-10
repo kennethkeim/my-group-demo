@@ -20,6 +20,8 @@ from dbModels import Users, Contacts, Events, db
 def events():
     """Render events page"""
 
+    # filter the events by the year passed in by the user
+
     # retrieve all events from database
     events = Events.query.order_by(Events.date).all()
 
@@ -134,7 +136,7 @@ def addev():
         notes = request.form.get("notes")
 
     # format and save 'date' (only current year allowed for now)
-    # cur_year = 2018
+    # currentYear = 2018
     try:
         date = datetime.date(currentYear, month_num, day_num)
     except (ValueError, TypeError):
