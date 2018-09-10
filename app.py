@@ -19,12 +19,12 @@ app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(days=90)
 
 # require app to always redirect to https
 # SSL cert is provided by Heroku
-# @app.before_request
-# def before_request():
-#     if request.url.startswith('http://'):
-#         url = request.url.replace('http://', 'https://', 1)
-#         code = 301
-#         return redirect(url, code=code)
+@app.before_request
+def before_request():
+    if request.url.startswith('http://'):
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return redirect(url, code=code)
 
 
 # Middleware from Harvard's CS50 staff ------------------------------------------------------------------------------------
