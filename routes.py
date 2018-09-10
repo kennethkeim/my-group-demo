@@ -10,7 +10,7 @@ import datetime
 import re
 
 # import my own modules
-from app import app, login_required, months, currentYear
+from app import app, login_required, months
 from dbModels import Users, Contacts, Events, db
 
 
@@ -135,8 +135,8 @@ def addev():
     if request.form.get("notes"):
         notes = request.form.get("notes")
 
-    # format and save 'date' (only current year allowed for now)
-    # currentYear = 2018
+    # format and save date
+    currentYear = datetime.datetime.now().year
     try:
         date = datetime.date(currentYear, month_num, day_num)
     except (ValueError, TypeError):

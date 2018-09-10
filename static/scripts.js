@@ -41,13 +41,11 @@ if (top.location.pathname === "/")
 // if on the directory page:
 if (top.location.pathname === "/directory")
 {
-
     // toggle active states on directory and event buttons
     var dirbtn = document.getElementById('dirbtn');
     var evbtn = document.getElementById('evbtn');
     dirbtn.classList.add("active");
     evbtn.classList.remove("active");
-
 }
 
 
@@ -69,6 +67,7 @@ $('a.allev_btn').on('click', function(e){
 // add event handler: initialize the modal with a blank form when 'add event' is clicked
 // (this clears any data in the form that was prefilled if 'edit event' was clicked)
 $('#addev_btn').on('click', function(){
+
     // assign empty values (these translate to 'None' type in python)
     var modal = $('#addev_modal');
     modal.find('.modal-title').text('Add New Event');

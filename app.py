@@ -55,7 +55,7 @@ def login_required(f):
 
 # Global variables
 months = ["","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-currentYear = 2018 # don't judge, it's my first real web app :)
+
 
 # ROUTES
 import routes
