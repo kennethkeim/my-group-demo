@@ -58,39 +58,19 @@ if (top.location.pathname === "/directory")
 $('a.allev_btn').on('click', function(e){
     e.preventDefault();
     selected_ev_id = $(this).attr('id');
-    id_for_url = "id=" + selected_ev_id;
-    return true;
 });
 
 
-
-// add event handler: initialize the modal with a blank form when 'add event' is clicked
-// (this clears any data in the form that was prefilled if 'edit event' was clicked)
+// show the modal with the 'add event' form
 $('#addev_btn').on('click', function(){
-
-    // assign empty values (these translate to 'None' type in python)
+    $('#addev_form').trigger('reset');
     var modal = $('#addev_modal');
-    modal.find('.modal-title').text('Add New Event');
-    modal.find('#title').val('');
-    modal.find('#type').val('');
-    modal.find('#month_num').val('');
-    modal.find('#day_num').val('');
-    modal.find('#time').val('');
-    modal.find('#location').val('');
-    modal.find('#notes').val('');
-    modal.find('#hidden_event_id').val(0);
-
-    // show the modal
-    modal.modal({
-        backdrop: 'static'
-    },'show');
+    modal.modal({backdrop: 'static'},'show');
 });
 
 
-
-
-// edit event handler: prefill the modal form with all event info when 'edit event' is clicked
-$('a.allev_btn').on('click', function(e){
+// prefill the 'edit event' modal form with all event info for clicked event
+$('a.allev_btn').on('click', function(){
     var thistag = $(this);
     $('#edit_pop_btn').on('click', function(){
         // get all the data for the selected event from the html elements
@@ -104,8 +84,7 @@ $('a.allev_btn').on('click', function(e){
         var notes = thistag.children('p').text();
 
         // initialize the 'edit event' form with the data
-        var modal = $('#addev_modal');
-        modal.find('.modal-title').text('Edit Event');
+        var modal = $('#editev_modal');
         modal.find('#title').val(title);
         modal.find('#type').val(type);
         modal.find('#month_num').val(month_num);
@@ -113,24 +92,42 @@ $('a.allev_btn').on('click', function(e){
         modal.find('#time').val(time);
         modal.find('#location').val(location);
         modal.find('#notes').val(notes);
-        modal.find('#hidden_event_id').val(selected_ev_id);
 
         // show the modal
-        modal.modal({
-        backdrop: 'static',
-        },'show');
+        modal.modal({backdrop: 'static'},'show');
     });
 });
 
 
 
-// add/edit event form submission handler
+// add event form submission handler
 $('#addev_form').on('submit', function(e){
      e.preventDefault();
      $('#addev_modal').modal('hide');
+
      $.ajax({
-         url: "/addev",
+         url: '/events',
          type: "POST",
+         data: $( this ).serialize(),
+         success: function(data){
+             location.reload();
+         },
+         error: function(jqXHR, textStatus, errorThrown){
+             $('#response').html("<p><div style='color: red;'>" + textStatus + " " + errorThrown + ": </div>" + jqXHR.responseText + "</p>");
+             $('#response_modal').modal('show');
+         }
+     });
+});
+
+
+// edit event form submission handler
+$('#editev_form').on('submit', function(e){
+     e.preventDefault();
+     $('#editev_modal').modal('hide');
+
+     $.ajax({
+         url: `/events/${selected_ev_id}`,
+         type: "PUT",
          data: $( this ).serialize(),
          success: function(data){
              location.reload();
@@ -147,9 +144,8 @@ $('#addev_form').on('submit', function(e){
 // delete event form submission handler
 $('#del_confirm').on('click', function(){
      $.ajax({
-         url: "/delev",
-         type: "POST",
-         data: id_for_url,
+         url: `/events/${selected_ev_id}`,
+         type: "DELETE",
          success: function(){
              location.reload();
          },

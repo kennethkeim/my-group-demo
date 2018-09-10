@@ -55,7 +55,7 @@ h1
 
 #side_nav a {
    display: inline-block;
-   font-size: .6em;
+   font-size: .7em;
    color: #fff;
    background: #0a3d62;
    border-radius: 2px;
@@ -215,11 +215,13 @@ h1
 
 
 /* add/edit event modal */
-#addev_modal .modal-header
+#addev_modal .modal-header,
+#editev_modal .modal-header
 {
     border-style: none;
 }
-#addev_modal .modal-content
+#addev_modal .modal-content,
+#editev_modal .modal-content
 {
     color: #0a3d62;
 }
@@ -389,6 +391,7 @@ h1
 
 /* add/edit event modal buttons */
 #addev_modal .btn,
+#editev_modal .btn,
 #login_form .btn,
 #register_form .btn
 {
@@ -401,12 +404,14 @@ h1
     margin: 0 auto 0 auto;
 }
 #addev_modal .btn:hover,
+#editev_modal .btn:hover,
 #login_form .btn:hover,
 #register_form .btn:hover
 {
     background: #204E70;
 }
-#addev_modal .close
+#addev_modal .close,
+#editev_modal .close
 {
     color: red;
 }

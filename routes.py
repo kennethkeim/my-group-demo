@@ -20,8 +20,6 @@ from dbModels import Users, Contacts, Events, db
 def events():
     """Render events page"""
 
-    # filter the events by the year passed in by the user
-
     # retrieve all events from database
     events = Events.query.order_by(Events.date).all()
 
@@ -103,12 +101,12 @@ def directory():
 
 
 
-# Add or edit an event
-# (what's REST anyways?)
-@app.route("/addev", methods=["POST"])
+
+# ADD an event
+@app.route("/events", methods=["POST"])
 @login_required
 def addev():
-    """Add or edit an event"""
+    """Add an event"""
 
     # validating, formatting, and saving the data------------------------------------------------------------------------------------
 
@@ -122,7 +120,61 @@ def addev():
     try:
         month_num = int(request.form.get("month_num"))
         day_num = int(request.form.get("day_num"))
-        event_id = int(request.form.get('event_id'))
+    except ValueError:
+        return "Sorry, there's something wrong with the data format.", 400
+
+    # check the rest of the data and save if present
+    time, location, notes = None, None, None
+    if request.form.get("time"):
+        time = request.form.get("time")
+    if request.form.get("location"):
+        location = request.form.get("location")
+    if request.form.get("notes"):
+        notes = request.form.get("notes")
+
+    # format date
+    currentYear = datetime.datetime.now().year
+    try:
+        date = datetime.date(currentYear, month_num, day_num)
+    except (ValueError, TypeError):
+        return "Sorry, this date isn't valid. Make sure you didn't select something like: 'February 30'", 400
+
+    # format 'readable_date'
+    weeks = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    wkday = weeks[date.weekday()]
+    month_name = months[month_num]
+    readable_date = f"{wkday}, {month_name} {day_num}"
+
+    # validating, formatting, and saving the data------------------------------------------------------------------------------------
+
+    # save the event to the database
+    new_ev = Events(title, date, time, readable_date, location, notes, type, month_num)
+    db.session.add(new_ev)
+    db.session.commit()
+    return "Success", 200
+
+
+
+
+
+# EDIT an event
+@app.route("/events/<event_id>", methods=["PUT"])
+@login_required
+def editev(event_id):
+    """Edit an event"""
+
+    # validating, formatting, and saving the data------------------------------------------------------------------------------------
+
+    # check if required info is present, if so, save that data
+    if not request.form.get("title") or not request.form.get("type") or not request.form.get("month_num") or not request.form.get("day_num"):
+        return "Sorry, required info is missing", 400
+
+    # ensure the essential data is correctly formatted
+    title = request.form.get("title")
+    type = request.form.get("type")
+    try:
+        month_num = int(request.form.get("month_num"))
+        day_num = int(request.form.get("day_num"))
     except ValueError:
         return "Sorry, there's something wrong with the data format.", 400
 
@@ -150,39 +202,31 @@ def addev():
 
     # validating, formatting, and saving the data------------------------------------------------------------------------------------
 
-    # if this is a new event:
-    # ('event_id' is a hidden, pre-initialized input in the form)
-    if event_id == 0:
-        new_ev = Events(title, date, time, readable_date, location, notes, type, month_num)
-        db.session.add(new_ev)
+
+    # save the event to the database
+    if db.session.query(db.exists().where(Events.id == event_id)).scalar(): # this is stock SQLAlchemy
+        event = Events.query.get(event_id)
+        event.title = title
+        event.date = date
+        event.time = time
+        event.readable_date = readable_date
+        event.location = location
+        event.notes = notes
+        event.type = type
+        event.month_num = month_num
         db.session.commit()
         return "Success", 200
-    else:
-        # if this is an existing event:
-        # ('event_id' here is a hidden input in the form that is pre-initialized as the event id in the database)
-        if db.session.query(db.exists().where(Events.id == event_id)).scalar(): # this is stock SQLAlchemy
-            event = Events.query.get(event_id)
-            event.title = title
-            event.date = date
-            event.time = time
-            event.readable_date = readable_date
-            event.location = location
-            event.notes = notes
-            event.type = type
-            event.month_num = month_num
-            db.session.commit()
-            return "Success", 200
 
 
 
 
 # Delete an event
-@app.route("/delev", methods=["POST"])
+@app.route("/events/<event_id>", methods=["DELETE"])
 @login_required
-def delev():
+def delev(event_id):
     """Delete an event"""
     # obtain event to be deleted
-    event_id = request.form.get('id')
+    # event_id = request.form.get('id')
 
     # delete event if it exists
     event = Events.query.filter_by(id=event_id).first()
