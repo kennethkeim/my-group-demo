@@ -17,7 +17,7 @@ from dbModels import Users, Contacts, Events, db
 # redirect home page to events page
 @app.route("/", methods=["GET"])
 @login_required
-def gohome():
+def redir():
     """Redirect to Events Page"""
     return redirect("/events")
 
