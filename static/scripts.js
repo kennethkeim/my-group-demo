@@ -56,6 +56,9 @@ if (top.location.pathname === "/directory")
 
 // Event handlers.............................................................................................................
 
+$('.mobile_nav_btn').click(function() {
+   $('.navbar-toggler').trigger('click');
+});
 
 // all events a tag click handler
 $('a.allev_btn').on('click', function(e){
