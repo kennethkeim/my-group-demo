@@ -1,13 +1,16 @@
 // Code that executes on doc load....................................................................................................
 
 // if on the home (events) page:
-if (top.location.pathname === "/events")
+if (window.location.pathname != "/directory")
 {
     // toggle active states on directory and event buttons
     var dirbtn = document.getElementById('dirbtn');
     var evbtn = document.getElementById('evbtn');
     evbtn.classList.add("active");
     dirbtn.classList.remove("active");
+
+
+
 
     // global variables to remember the id of last clicked event
     // the variable saves the database event id, and is passed in along with form data anytime an existing event is modified
@@ -32,7 +35,7 @@ if (top.location.pathname === "/events")
     var months = ["","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var date = new Date();
     var month_name = months[date.getMonth() +1];
-    location.href = "#" + month_name;
+    window.location.href = "#" + month_name;
 
     // in case I need to scroll a given number of pixels
     // var pixels = $(window).scrollTop() - 60;
@@ -42,7 +45,7 @@ if (top.location.pathname === "/events")
 
 
 // if on the directory page:
-if (top.location.pathname === "/directory")
+if (window.location.pathname == "/directory")
 {
     // toggle active states on directory and event buttons
     var dirbtn = document.getElementById('dirbtn');

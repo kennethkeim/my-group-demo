@@ -6,11 +6,12 @@
 # import external dependancies
 from flask import render_template, jsonify, request, redirect, session
 from werkzeug.security import check_password_hash, generate_password_hash
+from sqlalchemy import and_
 import datetime
 import re
 
 # import my own modules
-from app import app, login_required, months
+from app import app, login_required, months, currentYear
 from dbModels import Users, Contacts, Events, db
 
 
@@ -24,12 +25,16 @@ def redir():
 
 # Render events page
 @app.route("/events", methods=["GET"])
+@app.route("/events/<year>", methods=["GET"])
 @login_required
-def events():
+def events(year=currentYear):
     """Render events page"""
 
+    yearBegin = datetime.date(int(year), 1, 1)
+    yearEnd = datetime.date(int(year), 12, 31)
+
     # retrieve all events from database
-    events = Events.query.order_by(Events.date).all()
+    events = Events.query.filter(and_(Events.date >= yearBegin, Events.date <= yearEnd)).order_by(Events.date).all()
 
     # prep
     list_items = ["", ]
@@ -89,8 +94,10 @@ def events():
 
         # iteration over each event ends ---------------------------------------------------------------------------------------------
 
+    years = [(currentYear -1), currentYear, (currentYear + 1)]
+
     # pass data to events.html
-    return render_template("events.html", list_items=list_items)
+    return render_template("events.html", list_items=list_items, years=years, year=year)
 
 
 
@@ -141,7 +148,6 @@ def addev():
         notes = request.form.get("notes")
 
     # format date
-    currentYear = datetime.datetime.now().year
     try:
         date = datetime.date(currentYear, month_num, day_num)
     except (ValueError, TypeError):
@@ -196,7 +202,6 @@ def editev(event_id):
         notes = request.form.get("notes")
 
     # format and save date
-    currentYear = datetime.datetime.now().year
     try:
         date = datetime.date(currentYear, month_num, day_num)
     except (ValueError, TypeError):

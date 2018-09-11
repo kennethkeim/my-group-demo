@@ -55,6 +55,7 @@ def login_required(f):
 
 # Global variables
 months = ["","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+currentYear = datetime.datetime.now().year
 
 
 # ROUTES

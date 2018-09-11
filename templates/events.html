@@ -34,6 +34,13 @@
       <a class="mobile_nav_btn" href="#December">Dec</a>
    </div>
 </li>
+<li class="nav-item">
+   <div id="mobile_nav_years">
+         <a href="/events/{{ years[0] }}" id="{{ years[0] }}mobile">{{ years[0] }}</a>
+         <a href="/events/{{ years[1] }}" id="{{ years[1] }}mobile">{{ years[1] }}</a>
+         <a href="/events/{{ years[2] }}" id="{{ years[2] }}mobile">{{ years[2] }}</a>
+   </div>
+</li>
 
 <!-- Add Event and Logout buttons -->
 <li class="nav-item">
@@ -348,8 +355,17 @@
    <a href="#November">Nov</a>
    <a href="#December">Dec</a><br>
 </div>
+<div id="side_nav_years">
+      <a href="/events/{{ years[0] }}" id="{{ years[0] }}">{{ years[0] }}</a>
+      <a href="/events/{{ years[1] }}" id="{{ years[1] }}">{{ years[1] }}</a>
+      <a href="/events/{{ years[2] }}" id="{{ years[2] }}">{{ years[2] }}</a>
+</div>
 {% endblock %}
 
+{% block inlinejs %}
+   <script>$('#{{year}}').addClass('active');</script>
+   <script>$('#{{year}}mobile').addClass('active');</script>
+{% endblock %}
 
 
 {% block main %}
