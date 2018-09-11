@@ -77,13 +77,14 @@ h1
 
 #mobile_nav a {
    display: inline-block;
-   font-size: .7em;
+   font-size: .8em;
    color: #fff;
    background: #0a3d62;
    border-radius: 2px;
    width: 40px;
-   padding-top: 1px;
-   padding-bottom: 1px;
+   padding-top: 2px;
+   padding-bottom: 2px;
+   margin: 2px 2px 4px 2px;
 }
 
 
