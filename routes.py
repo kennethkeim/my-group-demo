@@ -14,8 +14,16 @@ from app import app, login_required, months
 from dbModels import Users, Contacts, Events, db
 
 
+# redirect home page to events page
+@app.route("/", methods=["GET"])
+@login_required
+def gohome():
+    """Redirect to Events Page"""
+    return redirect("/events")
+
+
 # Render events page
-@app.route("/")
+@app.route("/events", methods=["GET"])
 @login_required
 def events():
     """Render events page"""
@@ -89,7 +97,7 @@ def events():
 
 
 # Render directory page
-@app.route("/directory")
+@app.route("/directory", methods=["GET"])
 @login_required
 def directory():
     """Render directory page"""
@@ -341,7 +349,7 @@ def login():
 
 
 # Log user out
-@app.route("/logout")
+@app.route("/logout", methods=["POST"])
 def logout():
     """Log user out"""
 

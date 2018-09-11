@@ -6,7 +6,7 @@
 
 {% block navbar %}
 <!-- Events and Directory Buttons -->
-<form class="form-inline" action="/" method="get">
+<form class="form-inline" action="/events" method="get">
     <button type="submit" class="btn" id="evbtn"><i class="far fa-calendar-alt"></i> Events</button>
 </form>
 <form class="form-inline" action="/directory" method="get">
@@ -21,7 +21,9 @@
     <button class="btn mt-4 mt-sm-auto" type="button" id="addev_btn"><i class="fas fa-plus"></i> add event</button>
 </li>
 <li class="nav-item">
-    <a href="/logout" id="logout_btn" class="btn mt-2 mt-sm-auto"><i class="fas fa-sign-out-alt"></i> logout</a>
+    <form class="form-inline" action="/logout" method="post">
+        <button type="submit" class="btn mt-3 mt-sm-auto" id="logout_btn"><i class="fas fa-sign-out-alt"></i> logout</button>
+    </form>
 </li>
 {% endblock %}
 

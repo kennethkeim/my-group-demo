@@ -1,7 +1,7 @@
 // Code that executes on doc load....................................................................................................
 
 // if on the home (events) page:
-if (top.location.pathname === "/")
+if (top.location.pathname === "/events")
 {
     // toggle active states on directory and event buttons
     var dirbtn = document.getElementById('dirbtn');
