@@ -59,3 +59,7 @@ months = ["","January", "February", "March", "April", "May", "June", "July", "Au
 
 # ROUTES
 import routes
+
+# from changeEvents import importEventsToYear
+# result = importEventsToYear(2018)
+# print(result)
