@@ -32,8 +32,11 @@ if (top.location.pathname === "/events")
     var months = ["","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     var date = new Date();
     var month_name = months[date.getMonth() +1];
-    location.href = "#";
     location.href = "#" + month_name;
+
+    // in case I need to scroll a given number of pixels
+    // var pixels = $(window).scrollTop() - 60;
+    // $(window).scrollTop(pixels);
 }
 
 
