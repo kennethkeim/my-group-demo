@@ -20,7 +20,7 @@ from dbModels import Users, Contacts, Events, db
 @login_required
 def redir():
     """Redirect to Events Page"""
-    return redirect("/events")
+    return redirect("/events", 302)
 
 
 # Render events page
