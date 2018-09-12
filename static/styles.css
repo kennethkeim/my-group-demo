@@ -90,7 +90,7 @@ h1
 #side_nav {
    position: fixed;
    left: 0px;
-   top: 75px;
+   top: 80px;
    width: 140px;
    z-index: 1;
 }
@@ -110,7 +110,7 @@ h1
 #side_nav_years {
    position: fixed;
    left: 0;
-   top: 235px;
+   top: 200px;
    width: 140px;
    z-index: 1;
 }
