@@ -11,7 +11,7 @@ import datetime
 import re
 
 # import my own modules
-from app import app, login_required, months, currentYear
+from app import app, login_required, months, weeks, currentYear
 from dbModels import Users, Contacts, Events, db
 
 
@@ -123,18 +123,17 @@ def directory():
 def addev():
     """Add an event"""
 
-    # validating, formatting, and saving the data------------------------------------------------------------------------------------
-
-    # check if required info is present, if so, save that data
-    if not request.form.get("title") or not request.form.get("type") or not request.form.get("month_num") or not request.form.get("day_num"):
+    # ensure required data is present
+    if not request.form.get("title") or not request.form.get("type") or not request.form.get("date"):
         return "Sorry, required info is missing", 400
 
     # ensure the essential data is correctly formatted
     title = request.form.get("title")
     type = request.form.get("type")
     try:
-        month_num = int(request.form.get("month_num"))
-        day_num = int(request.form.get("day_num"))
+        month_num = int(request.form.get("date")[:2])
+        day_num = int(request.form.get("date")[3:5])
+        year_num = int(request.form.get("date")[6:])
     except ValueError:
         return "Sorry, there's something wrong with the data format.", 400
 
@@ -149,17 +148,14 @@ def addev():
 
     # format date
     try:
-        date = datetime.date(currentYear, month_num, day_num)
+        date = datetime.date(year_num, month_num, day_num)
     except (ValueError, TypeError):
-        return "Sorry, this date isn't valid. Make sure you didn't select something like: 'February 30'", 400
+        return "Sorry, this date isn't valid.", 400
 
     # format 'readable_date'
-    weeks = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     wkday = weeks[date.weekday()]
     month_name = months[month_num]
     readable_date = f"{wkday}, {month_name} {day_num}"
-
-    # validating, formatting, and saving the data------------------------------------------------------------------------------------
 
     # save the event to the database
     new_ev = Events(title, date, time, readable_date, location, notes, type, month_num)
@@ -177,18 +173,17 @@ def addev():
 def editev(event_id):
     """Edit an event"""
 
-    # validating, formatting, and saving the data------------------------------------------------------------------------------------
-
-    # check if required info is present, if so, save that data
-    if not request.form.get("title") or not request.form.get("type") or not request.form.get("month_num") or not request.form.get("day_num"):
+    # ensure required data is present
+    if not request.form.get("title") or not request.form.get("type") or not request.form.get("date"):
         return "Sorry, required info is missing", 400
 
     # ensure the essential data is correctly formatted
     title = request.form.get("title")
     type = request.form.get("type")
     try:
-        month_num = int(request.form.get("month_num"))
-        day_num = int(request.form.get("day_num"))
+        month_num = int(request.form.get("date")[:2])
+        day_num = int(request.form.get("date")[3:5])
+        year_num = int(request.form.get("date")[6:])
     except ValueError:
         return "Sorry, there's something wrong with the data format.", 400
 
@@ -201,19 +196,16 @@ def editev(event_id):
     if request.form.get("notes"):
         notes = request.form.get("notes")
 
-    # format and save date
+    # format date
     try:
-        date = datetime.date(currentYear, month_num, day_num)
+        date = datetime.date(year_num, month_num, day_num)
     except (ValueError, TypeError):
-        return "Sorry, this date isn't valid. Make sure you didn't select something like: 'February 30'", 400
+        return "Sorry, this date isn't valid.", 400
 
-    # format and save 'readable_date'
-    weeks = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    # format 'readable_date'
     wkday = weeks[date.weekday()]
     month_name = months[month_num]
     readable_date = f"{wkday}, {month_name} {day_num}"
-
-    # validating, formatting, and saving the data------------------------------------------------------------------------------------
 
 
     # save the event to the database
@@ -229,6 +221,7 @@ def editev(event_id):
         event.month_num = month_num
         db.session.commit()
         return "Success", 200
+
 
 
 

@@ -9,7 +9,9 @@ if (window.location.pathname != "/directory")
     evbtn.classList.add("active");
     dirbtn.classList.remove("active");
 
-
+    // activate the jQuery UI datepicker
+    $('#datepicker1').datepicker();
+    $('#datepicker2').datepicker();
 
 
     // global variables to remember the id of last clicked event
@@ -72,9 +74,12 @@ $('a.allev_btn').on('click', function(e){
 
 // show the modal with the 'add event' form
 $('#addev_btn').on('click', function(){
+
+   // reset all the values in the form
     $('#addev_form').trigger('reset');
-    var modal = $('#addev_modal');
-    modal.modal({backdrop: 'static'},'show');
+
+    // show the modal
+    $('#addev_modal').modal({backdrop: 'static'},'show');
 });
 
 
@@ -85,22 +90,20 @@ $('a.allev_btn').on('click', function(){
         // get all the data for the selected event from the html elements
         var title = thistag.children('h6').text();
         var type = thistag.attr('name');
-        var datetime = thistag.siblings().attr('datetime');
-        var month_num = datetime[5] + datetime[6];
-        var day_num = datetime[8] + datetime[9];
+        var date = thistag.siblings().attr('datetime');
+        var formattedDate = `${date.substring(5, 7)}/${date.substring(8)}/${date.substring(0,4)}`;
         var time = thistag.children('time').attr('datetime');
         var location = thistag.children('div').text();
         var notes = thistag.children('p').text();
 
         // initialize the 'edit event' form with the data
         var modal = $('#editev_modal');
-        modal.find('#title').val(title);
-        modal.find('#type').val(type);
-        modal.find('#month_num').val(month_num);
-        modal.find('#day_num').val(day_num);
-        modal.find('#time').val(time);
-        modal.find('#location').val(location);
-        modal.find('#notes').val(notes);
+        modal.find('#title2').val(title);
+        modal.find('#type2').val(type);
+        modal.find('#datepicker2').val(formattedDate)
+        modal.find('#time2').val(time);
+        modal.find('#location2').val(location);
+        modal.find('#notes2').val(notes);
 
         // show the modal
         modal.modal({backdrop: 'static'},'show');

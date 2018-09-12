@@ -370,11 +370,18 @@ h1
     border-radius: 20px;
 }
 
-#addev_form
+#addev_form,
+#editev_form
 {
     text-align: left;
 }
 
+
+/* datepicker */
+#ui-datepicker-div td a {
+   border: none;
+   text-align: center;
+}
 
 
 
