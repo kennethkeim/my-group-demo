@@ -47,7 +47,7 @@ h1
 }
 
 #ev_container {
-   margin-left: 140px;
+   margin-left: 145px;
 }
 
 #side_nav a:hover,
@@ -91,7 +91,7 @@ h1
    position: fixed;
    left: 0px;
    top: 80px;
-   width: 140px;
+   width: 145px;
    z-index: 1;
 }
 
@@ -111,7 +111,7 @@ h1
    position: fixed;
    left: 0;
    top: 200px;
-   width: 140px;
+   width: 145px;
    z-index: 1;
 }
 
