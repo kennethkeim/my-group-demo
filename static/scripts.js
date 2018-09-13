@@ -14,11 +14,9 @@ if (window.location.pathname.includes("events"))
     $('#datepicker2').datepicker();
 
 
-    // global variables to remember the id of last clicked event
-    // the variable saves the database event id, and is passed in along with form data anytime an existing event is modified
+    // global variable to remember the id of last clicked event
+    // the variable saves the event's database id, and is passed in along with form data anytime an existing event is modified
     selected_ev_id = 0
-    // url ready
-    id_for_url = "id=0"
 
 
     // initiate popups on all events a tags
@@ -54,6 +52,23 @@ if (window.location.pathname == "/directory")
     var evbtn = document.getElementById('evbtn');
     dirbtn.classList.add("active");
     evbtn.classList.remove("active");
+
+    // global variable to remember the id of last clicked contact
+    // the variable saves the contact's database id, and is passed in along with form data anytime an existing contact is modified
+    selected_contact_id = 0
+
+
+    // initiate popups on all contacts a tags
+    var popupContent = '<button class="btn btn-sm" id="edit_pop_btn"><i class="fas fa-pencil-alt"></i> edit</button>' + '<button class="btn btn-sm" id="del_pop_btn" data-toggle="modal" data-target="#delcontact_modal" data-backdrop="static"><i class="fas fa-trash-alt"></i> delete</button>'
+
+    $(".popoverSelector").popover({
+        animation: true,
+        content: popupContent,
+        placement: 'bottom',
+        container: 'body',
+        trigger: 'focus',
+        html: true
+    });
 }
 
 
@@ -61,9 +76,12 @@ if (window.location.pathname == "/directory")
 
 // Event handlers.............................................................................................................
 
+
+// dismiss the navbar when a month is clicked in mobile
 $('.mobile_nav_btn').click(function() {
    $('.navbar-toggler').trigger('click');
 });
+
 
 // all events a tag click handler
 $('a.allev_btn').on('click', function(e){
@@ -71,8 +89,14 @@ $('a.allev_btn').on('click', function(e){
     selected_ev_id = $(this).attr('id');
 });
 
+// all events a tag click handler
+$('a.popoverSelector').on('click', function(e){
+    e.preventDefault();
+    selected_contact_id = $(this).attr('id');
+});
 
-// show the modal with the 'add event' form
+
+// show the 'add event' form
 $('#addev_btn').on('click', function(){
 
    // reset all the values in the form
@@ -83,7 +107,9 @@ $('#addev_btn').on('click', function(){
 });
 
 
-// prefill the 'edit event' modal form with all event info for clicked event
+
+// prefill the 'edit event' form with all event info for clicked event
+// show the edit event form
 $('a.allev_btn').on('click', function(){
     var thistag = $(this);
     $('#edit_pop_btn').on('click', function(){
@@ -112,6 +138,7 @@ $('a.allev_btn').on('click', function(){
 
 
 
+
 // add event form submission handler
 $('#addev_form').on('submit', function(e){
      e.preventDefault();
@@ -121,7 +148,7 @@ $('#addev_form').on('submit', function(e){
          url: '/events',
          type: "POST",
          data: $( this ).serialize(),
-         success: function(data){
+         success: function(){
              location.reload();
          },
          error: function(jqXHR, textStatus, errorThrown){
@@ -141,7 +168,7 @@ $('#editev_form').on('submit', function(e){
          url: `/events/${selected_ev_id}`,
          type: "PUT",
          data: $( this ).serialize(),
-         success: function(data){
+         success: function(){
              location.reload();
          },
          error: function(jqXHR, textStatus, errorThrown){
@@ -154,7 +181,7 @@ $('#editev_form').on('submit', function(e){
 
 
 // delete event form submission handler
-$('#del_confirm').on('click', function(){
+$('#delev_confirm').on('click', function(){
      $.ajax({
          url: `/events/${selected_ev_id}`,
          type: "DELETE",
@@ -170,8 +197,8 @@ $('#del_confirm').on('click', function(){
 
 
 
+// import events to new year form submission handler
 $('#importev_form').on('submit', function(e){
-   console.log('jq is on it!');
      e.preventDefault();
 
      $.ajax({
@@ -184,6 +211,54 @@ $('#importev_form').on('submit', function(e){
          },
          error: function(jqXHR, textStatus, errorThrown){
             $('#col').append(`<div id="error_message">${errorThrown}: ${jqXHR.responseText}</div>`);
+         }
+     });
+});
+
+
+
+// show the 'add contact' form
+$('#addcontact_btn').on('click', function(){
+
+   // reset all the values in the form
+    $('#addcontact_form').trigger('reset');
+
+    // show the modal
+    $('#addcontact_modal').modal({backdrop: 'static'},'show');
+});
+
+
+// add event form submission handler
+$('#addcontact_form').on('submit', function(e){
+     e.preventDefault();
+     $('#addcontact_modal').modal('hide');
+
+     $.ajax({
+         url: '/directory',
+         type: "POST",
+         data: $( this ).serialize(),
+         success: function(){
+             location.reload();
+         },
+         error: function(jqXHR, textStatus, errorThrown){
+            $('h1').after(`<div id="error_message">${errorThrown}: ${jqXHR.responseText}</div>`);
+         }
+     });
+});
+
+
+
+
+// delete contact form submission handler
+$('#delcontact_confirm').on('click', function(){
+     $.ajax({
+         url: `/directory/${selected_contact_id}`,
+         type: "DELETE",
+         success: function(){
+             location.reload();
+         },
+         error: function(jqXHR, textStatus, errorThrown){
+            $('h1').after(`<div id="error_message">${errorThrown}: ${jqXHR.responseText}</div>`);
          }
      });
 });

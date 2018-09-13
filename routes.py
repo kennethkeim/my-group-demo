@@ -23,7 +23,7 @@ def redir():
     return redirect("/events", 302)
 
 
-# Render events page
+# SHOW events page
 @app.route("/events", methods=["GET"])
 @app.route("/events/<int:year>", methods=["GET"])
 @login_required
@@ -99,19 +99,6 @@ def events(year=datetime.datetime.now().year):
     # pass data to events.html
     return render_template("events.html", list_items=list_items, years=years, year=year)
 
-
-
-
-
-# Render directory page
-@app.route("/directory", methods=["GET"])
-@login_required
-def directory():
-    """Render directory page"""
-
-    # get all contacts and render them on the directory page
-    contacts = Contacts.query.order_by(Contacts.last_name).all()
-    return render_template("directory.html", contacts=contacts)
 
 
 
@@ -226,26 +213,93 @@ def editev(event_id):
 
 
 
-# Delete an event
-@app.route("/events/<event_id>", methods=["DELETE"])
+# DELETE an event
+@app.route("/events/<int:event_id>", methods=["DELETE"])
 @login_required
 def delev(event_id):
     """Delete an event"""
-    # obtain event to be deleted
-    # event_id = request.form.get('id')
 
     # delete event if it exists
     event = Events.query.filter_by(id=event_id).first()
     if event:
         db.session.delete(event)
         db.session.commit()
-        return "operation successful", 200
+        return "", 200
     else:
         return "Sorry, something went wrong", 500
 
 
 
 
+
+
+# SHOW directory page
+@app.route("/directory", methods=["GET"])
+@login_required
+def directory():
+    """Render directory page"""
+
+    # get all contacts and render them on the directory page
+    contacts = Contacts.query.order_by(Contacts.last_name).all()
+    return render_template("directory.html", contacts=contacts)
+
+
+
+
+# ADD an event
+@app.route("/directory", methods=["POST"])
+@login_required
+def addcontact():
+    """Add a contact"""
+    # ensure required data is present
+    if not request.form.get("firstName") or not request.form.get("lastName") or not request.form.get("phone0") or not request.form.get("addrLine0") or not request.form.get("city") or not request.form.get("state") or not request.form.get("postal"):
+        return "Sorry, required info is missing", 400
+
+    # get the essential data
+    firstName = request.form.get("firstName")
+    lastName = request.form.get("lastName")
+    phone0 = request.form.get("phone0")
+    addrLine0 = request.form.get("addrLine0")
+    city = request.form.get("city")
+    state = request.form.get("state")
+    postal = request.form.get("postal")
+
+    # get the rest of the data if present
+    phone1, addrLine1, email = None, None, None
+    if request.form.get("phone1"):
+        phone1 = request.form.get("phone1")
+    if request.form.get("addrLine1"):
+        addrLine1 = request.form.get("addrLine1")
+
+    newContact = Contacts(firstName, lastName, phone0, phone1, email, addrLine0, addrLine1, city, state, postal)
+    db.session.add(newContact)
+    db.session.commit()
+    return "", 200
+
+
+
+
+
+# DELETE an event
+@app.route("/directory/<int:contact_id>", methods=["DELETE"])
+@login_required
+def delcontact(contact_id):
+    """DELETE a contact"""
+
+    # delete contact if it exists
+    contact = Contacts.query.filter_by(id=contact_id).first()
+    if contact:
+        db.session.delete(contact)
+        db.session.commit()
+        return "", 200
+    else:
+        return "Sorry, something went wrong", 500
+
+
+
+
+
+# SHOW the admin page
 @app.route("/admin", methods=["GET"])
 @login_required
 def admin():
@@ -257,7 +311,7 @@ def admin():
 
 
 
-
+# ADD events to new year from the admin page
 @app.route("/admin/importevents", methods=["POST"])
 @login_required
 def importEvents():

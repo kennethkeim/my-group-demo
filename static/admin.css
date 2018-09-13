@@ -3,22 +3,6 @@ h2 {
    font-weight: 300;
 }
 
-#error_message {
-   margin-top: 20px;
-   padding: 10px;
-   border-radius: 3px;
-   background: #f5afb4;
-   color: #561621;
-}
-
-#success_message {
-   margin-top: 20px;
-   padding: 10px;
-   border-radius: 3px;
-   background: #90f4c5;
-   color: #04552f;
-}
-
 #importev_form {
    width: 50%;
    margin: auto;

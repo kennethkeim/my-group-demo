@@ -298,18 +298,25 @@ h1
     margin-bottom: 2px;
 }
 
+#overide .popoverSelector {
+   text-decoration: none;
+}
+
+
 
 /********************* Modals *********************/
 
 
 /* add/edit event modal */
 #addev_modal .modal-header,
-#editev_modal .modal-header
+#editev_modal .modal-header,
+#addcontact_modal .modal-header
 {
     border-style: none;
 }
 #addev_modal .modal-content,
-#editev_modal .modal-content
+#editev_modal .modal-content,
+#addcontact_modal .modal-content
 {
     color: #0a3d62;
 }
@@ -331,13 +338,15 @@ h1
 
 /* response and confirm delete modals */
 #response_modal p,
-#del_modal .modal-body p
+#del_modal .modal-body p,
+#delcontact_modal .modal-body p
 {
     text-align: center;
     color: #0a3d62;
 }
 #response_modal .modal-header,
-#del_modal .modal-header
+#del_modal .modal-header,
+#delcontact_modal .modal-header
 {
     border-style: none;
 }
@@ -371,7 +380,8 @@ h1
 }
 
 #addev_form,
-#editev_form
+#editev_form,
+#addcontact_form
 {
     text-align: left;
 }
@@ -424,6 +434,7 @@ h1
 
 /* everything except directory and event buttons */
 .navbar-nav #addev_btn,
+.navbar-nav #addcontact_btn,
 #login_btn,
 #register_btn,
 .navbar-nav #logout_btn
@@ -437,6 +448,7 @@ h1
 /* everything except directory and event buttons: hover */
 .navbar-toggler span:hover,
 .navbar-nav #addev_btn:hover,
+.navbar-nav #addcontact_btn:hover,
 #login_btn:hover,
 #register_btn:hover,
 .navbar-nav #logout_btn:hover
@@ -448,6 +460,7 @@ h1
 /* ALL THE BUTTONS and toggler: focus */
 .navbar-toggler:focus,
 #addev_btn:focus,
+#addcontact_btn:focus,
 #dirbtn:focus,
 #evbtn:focus,
 .allev_btn:focus,
@@ -486,6 +499,7 @@ h1
 
 /* add/edit event modal buttons */
 #addev_modal .btn,
+#addcontact_modal .btn,
 #editev_modal .btn,
 #login_form .btn,
 #register_form .btn
@@ -499,6 +513,7 @@ h1
     margin: 0 auto 0 auto;
 }
 #addev_modal .btn:hover,
+#addcontact_modal .btn:hover,
 #editev_modal .btn:hover,
 #login_form .btn:hover,
 #register_form .btn:hover
@@ -506,6 +521,7 @@ h1
     background: #204E70;
 }
 #addev_modal .close,
+#addcontact_modal .close,
 #editev_modal .close
 {
     color: red;
@@ -520,7 +536,8 @@ h1
     margin: 0 auto 15px auto;
     text-align: center;
 }
-#del_confirm
+#delev_confirm,
+#delcontact_confirm
 {
     background: #d63031;
     color: #ffffff;
@@ -539,6 +556,7 @@ h1
 
 /* response and confirm delete modals: close icon */
 #del_modal .close,
+#delcontact_modal .close,
 #response_modal .close
 {
     color: red;
@@ -571,6 +589,22 @@ h1
 
 
 
+
+#error_message {
+   margin-top: 20px;
+   padding: 10px;
+   border-radius: 3px;
+   background: #f5afb4;
+   color: #561621;
+}
+
+#success_message {
+   margin-top: 20px;
+   padding: 10px;
+   border-radius: 3px;
+   background: #90f4c5;
+   color: #04552f;
+}
 
 
 

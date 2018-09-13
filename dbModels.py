@@ -42,10 +42,11 @@ class Contacts(db.Model):
     state = db.Column(db.String, unique=False, nullable=False)
     postal = db.Column(db.String, unique=False, nullable=False)
 
-    def __init__(self, first_name, last_name, phone, email, addr_line1, addr_line2, city, state, postal):
+    def __init__(self, first_name, last_name, phone0, phone1, email, addr_line1, addr_line2, city, state, postal):
         self.first_name = first_name
         self.last_name = last_name
-        self.phone = phone
+        self.phone0 = phone0
+        self.phone1 = phone1
         self.email = email
         self.addr_line1 = addr_line1
         self.addr_line2 = addr_line2
