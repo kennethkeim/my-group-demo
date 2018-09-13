@@ -279,6 +279,11 @@
 {% endblock %}
 
 
+{% block page_specific_js %}
+   <script src="{{ url_for('static', filename='events.js') }}"></script>
+{% endblock %}
+
+
 {% block inlinejs %}
    <script>$('#{{year}}').addClass('active');</script>
    <script>$('#{{year}}mobile').addClass('active');</script>

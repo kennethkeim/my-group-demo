@@ -9,6 +9,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy import and_
 import datetime
 import re
+import jsonpickle
 
 # import my own modules
 from app import app, login_required, months, weeks
@@ -246,7 +247,7 @@ def directory():
 
 
 
-# ADD an event
+# ADD an contact
 @app.route("/directory", methods=["POST"])
 @login_required
 def addcontact():
@@ -280,7 +281,67 @@ def addcontact():
 
 
 
-# DELETE an event
+# GET the data for the contact to be edited
+@app.route("/directory/<int:contact_id>/edit", methods=["GET"])
+@login_required
+def showcontact(contact_id):
+    """Get contact info"""
+    contact = Contacts.query.filter_by(id=contact_id).first()
+
+    temp = jsonpickle.encode(contact)
+    return jsonify(temp)
+
+
+
+
+
+
+# EDIT an contact
+@app.route("/directory/<int:contact_id>", methods=["PUT"])
+@login_required
+def editcontact(contact_id):
+    """Edit a contact"""
+    # ensure required data is present
+    if not request.form.get("firstName") or not request.form.get("lastName") or not request.form.get("phone0") or not request.form.get("addrLine0") or not request.form.get("city") or not request.form.get("state") or not request.form.get("postal"):
+        return "Sorry, required info is missing", 400
+
+    # get the essential data
+    firstName = request.form.get("firstName")
+    lastName = request.form.get("lastName")
+    phone0 = request.form.get("phone0")
+    addrLine0 = request.form.get("addrLine0")
+    city = request.form.get("city")
+    state = request.form.get("state")
+    postal = request.form.get("postal")
+
+    # get the rest of the data if present
+    phone1, addrLine1, email = None, None, None
+    if request.form.get("phone1"):
+        phone1 = request.form.get("phone1")
+    if request.form.get("addrLine1"):
+        addrLine1 = request.form.get("addrLine1")
+
+
+    # save the event to the database
+    if db.session.query(db.exists().where(Contacts.id == contact_id)).scalar(): # this is stock SQLAlchemy
+        contact = Contacts.query.get(contact_id)
+        contact.first_name = firstName
+        contact.last_name = lastName
+        contact.phone0 = phone0
+        contact.phone1 = phone1
+        contact.addr_line1 = addrLine0
+        contact.addr_line2 = addrLine1
+        contact.city = city
+        contact.state = state
+        contact.postal = postal
+        db.session.commit()
+        return "Success", 200
+
+
+
+
+
+# DELETE a contact
 @app.route("/directory/<int:contact_id>", methods=["DELETE"])
 @login_required
 def delcontact(contact_id):
@@ -294,6 +355,7 @@ def delcontact(contact_id):
         return "", 200
     else:
         return "Sorry, something went wrong", 500
+
 
 
 
@@ -361,6 +423,8 @@ def importEvents():
 
 
     return f"Imported {importedEventsCount}.", 200
+
+
 
 
 

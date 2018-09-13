@@ -310,13 +310,15 @@ h1
 /* add/edit event modal */
 #addev_modal .modal-header,
 #editev_modal .modal-header,
-#addcontact_modal .modal-header
+#addcontact_modal .modal-header,
+#editcontact_modal .modal-header
 {
     border-style: none;
 }
 #addev_modal .modal-content,
 #editev_modal .modal-content,
-#addcontact_modal .modal-content
+#addcontact_modal .modal-content,
+#editcontact_modal .modal-content
 {
     color: #0a3d62;
 }
@@ -381,7 +383,8 @@ h1
 
 #addev_form,
 #editev_form,
-#addcontact_form
+#addcontact_form,
+#editcontact_form
 {
     text-align: left;
 }
@@ -500,6 +503,7 @@ h1
 /* add/edit event modal buttons */
 #addev_modal .btn,
 #addcontact_modal .btn,
+#editcontact_modal .btn,
 #editev_modal .btn,
 #login_form .btn,
 #register_form .btn
@@ -514,6 +518,7 @@ h1
 }
 #addev_modal .btn:hover,
 #addcontact_modal .btn:hover,
+#editcontact_modal .btn:hover,
 #editev_modal .btn:hover,
 #login_form .btn:hover,
 #register_form .btn:hover
@@ -522,6 +527,7 @@ h1
 }
 #addev_modal .close,
 #addcontact_modal .close,
+#editcontact_modal .close,
 #editev_modal .close
 {
     color: red;

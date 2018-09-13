@@ -59,7 +59,7 @@
 
 
 
-<!-- Add Contact Modal -->
+<!-- ADD Contact Modal -->
 <div class="modal fade" tabindex="-1" role="dialog" id="addcontact_modal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -125,6 +125,77 @@
     </div> <!-- modal dialog -->
 </div> <!-- modal -->
 
+
+
+
+
+
+<!-- EDIT Contact Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="editcontact_modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit New Contact</h5>
+                <!-- close modal button -->
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="far fa-times-circle fa-sm"></i>
+                </button>
+            </div>
+            <form id="editcontact_form">
+                <div class="modal-body">
+
+                    <div class="form-group">
+                       <label for="firstNameEdit">First Name</label>
+                       <input type="text" name="firstName" id="firstNameEdit" required class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                       <label for="lastNameEdit">Last Name</label>
+                       <input type="text" name="lastName" id="lastNameEdit" required class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                       <label for="phone0Edit">Primary Phone (Husband's phone if married)</label>
+                       <input type="text" name="phone0" id="phone0Edit" required class="form-control" placeholder="000-000-0000">
+                    </div>
+
+                    <div class="form-group">
+                       <label for="phone1Edit">Secondary Phone (Wife's phone if married) <small class="label_help">optional</small></label>
+                       <input type="text" name="phone1" id="phone1Edit" class="form-control" placeholder="000-000-0000">
+                    </div>
+
+                    <div class="form-group">
+                       <label for="addrLine0Edit">Address Line One</label>
+                       <input type="text" name="addrLine0" id="addrLine0Edit" required class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                       <label for="addrLine1Edit">Address Line Two <small class="label_help">optional</small></label>
+                       <input type="text" name="addrLine1" id="addrLine1Edit" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                       <label for="cityEdit">City</label>
+                       <input type="text" name="city" id="cityEdit" required class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                       <label for="stateEdit">State</label>
+                       <input type="text" name="state" id="stateEdit" required class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                       <label for="postalEdit">Postal</label>
+                       <input type="text" name="postal" id="postalEdit" required class="form-control">
+                    </div>
+
+                    <button type="submit" class="btn">Submit</button>
+                </div> <!-- modal body -->
+            </form>
+        </div> <!-- modal content -->
+    </div> <!-- modal dialog -->
+</div> <!-- modal -->
+
 {% endblock %}
 
 
@@ -178,4 +249,9 @@
         </div>
     </ul>
 </div>
+{% endblock %}
+
+
+{% block page_specific_js %}
+   <script src="{{ url_for('static', filename='directory.js') }}"></script>
 {% endblock %}
