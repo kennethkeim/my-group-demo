@@ -56,7 +56,6 @@ def login_required(f):
 # Global variables
 months = ["","January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 weeks = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-currentYear = datetime.datetime.now().year
 
 
 # ROUTES

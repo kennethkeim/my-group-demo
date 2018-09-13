@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+
+{% block page_specific_css %}
+   <link href="{{ url_for('static', filename='admin.css') }}" rel="stylesheet">
+{% endblock %}
+
+
+{% block title %}My Group Admin Panel{% endblock %}
+
+
+{% block navbar %}
+<!-- navbar text -->
+<span class="navbar-text">My Group Admin Panel</span>
+{% endblock %}
+
+
+{% block navbar_nav %}
+<!-- Logout button -->
+<li class="nav-item">
+    <form class="form-inline" action="/logout" method="post">
+        <button type="submit" class="btn mt-3 mt-sm-auto" id="logout_btn"><i class="fas fa-sign-out-alt"></i> logout</button>
+    </form>
+</li>
+{% endblock %}
+
+
+{% block main %}
+
+   <h2>This is the admin panel, you can do things like import all the birthdays to the new year. (since people usually have birthdays on the same day every year.)</h2>
+
+
+   <h3>Import Events to a new year</h3>
+   <div class="row justify-content-center">
+      <div class="col-md-3">
+         <form action="/admin/import" method="post">
+            <div class="form-group">
+               <label for="type">Event Type</label>
+               <select id="type" name="type" class="form-control">
+                  <option value="birthday">birthday</option>
+                  <option value="anniversary">anniversary</option>
+                  <option value="holiday">holiday</option>
+                  <option value="event">event</option>
+                  <option value="food">food</option>
+               </select>
+            </div>
+
+            <div class="form-group">
+               <label for="year">Year to import the events to:</label>
+               <input type="text" id="year" name="year">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Import</button>
+         </form>
+      </div>
+   </div>
+
+
+{% endblock %}

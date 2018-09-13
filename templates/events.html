@@ -1,5 +1,8 @@
 {% extends "layout.html" %}
 
+{% block jquery_ui_theme %}
+       <link href="{{ url_for('static', filename='jquery-ui-theme/jquery-ui.css') }}" rel="stylesheet">
+{% endblock %}
 
 {% block title %} My Group Events {% endblock %}
 
@@ -229,8 +232,8 @@
 
 
 
-<!-- left side nav -->
 {% block side_nav %}
+<!-- left side nav -->
 <div id="side_nav">
    <a href="#January">Jan</a>
    <a href="#February">Feb</a>
@@ -252,15 +255,11 @@
 </div>
 {% endblock %}
 
-{% block inlinejs %}
-   <script>$('#{{year}}').addClass('active');</script>
-   <script>$('#{{year}}mobile').addClass('active');</script>
-{% endblock %}
 
 
 {% block main %}
 <!-- All the events -->
-<div class='container' id="ev_contain<br>
+<div class='container' id="ev_container">
     <ul class="list-group">
         <div class="row justify-content-center">
             {% for li in list_items %}
@@ -269,4 +268,16 @@
         </div>
     </ul>
 </div>
+{% endblock %}
+
+
+
+{% block jquery_ui %}
+   <script src="{{ url_for('static', filename='jquery-ui-theme/jquery-ui.js') }}"></script>
+{% endblock %}
+
+
+{% block inlinejs %}
+   <script>$('#{{year}}').addClass('active');</script>
+   <script>$('#{{year}}mobile').addClass('active');</script>
 {% endblock %}
