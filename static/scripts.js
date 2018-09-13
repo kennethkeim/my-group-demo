@@ -1,7 +1,7 @@
 // Code that executes on doc load....................................................................................................
 
 // if on the home (events) page:
-if (window.location.pathname != "/directory")
+if (window.location.pathname.includes("events"))
 {
     // toggle active states on directory and event buttons
     var dirbtn = document.getElementById('dirbtn');
@@ -164,6 +164,26 @@ $('#del_confirm').on('click', function(){
          error: function(jqXHR, textStatus, errorThrown){
              $('#response').html("<p><div style='color: red;'>" + textStatus + " " + errorThrown + ": </div>" + jqXHR.responseText + "</p>");
              $('#response_modal').modal('show');
+         }
+     });
+});
+
+
+
+$('#importev_form').on('submit', function(e){
+   console.log('jq is on it!');
+     e.preventDefault();
+
+     $.ajax({
+         url: '/admin/importevents',
+         type: "POST",
+         data: $( this ).serialize(),
+         success: function(data){
+             $('#importev_form').trigger('reset');
+             $('#col').append(`<div id="success_message">${data}</div>`);
+         },
+         error: function(jqXHR, textStatus, errorThrown){
+            $('#col').append(`<div id="error_message">${errorThrown}: ${jqXHR.responseText}</div>`);
          }
      });
 });

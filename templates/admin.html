@@ -26,17 +26,19 @@
 
 
 {% block main %}
+<div class="container">
 
    <h2>This is the admin panel, you can do things like import all the birthdays to the new year. (since people usually have birthdays on the same day every year.)</h2>
 
 
    <h3>Import Events to a new year</h3>
    <div class="row justify-content-center">
-      <div class="col-md-3">
-         <form action="/admin/import" method="post">
+      <div class="col-sm-7 col-md-5" id="col">
+         <form id="importev_form">
             <div class="form-group">
-               <label for="type">Event Type</label>
-               <select id="type" name="type" class="form-control">
+               <label for="type">Event Type</label><br>
+               <select id="type" name="type" class="form-control" required>
+                  <option disabled value selected>select a type</option>
                   <option value="birthday">birthday</option>
                   <option value="anniversary">anniversary</option>
                   <option value="holiday">holiday</option>
@@ -46,14 +48,31 @@
             </div>
 
             <div class="form-group">
-               <label for="year">Year to import the events to:</label>
-               <input type="text" id="year" name="year">
+               <label for="oldYear">From Year:</label><br>
+               <select id="oldYear" name="oldYear" class="form-control" required>
+                  <option disabled value selected>select a year</option>
+                  <option value="{{ years[0] }}">{{ years[0] }}</option>
+                  <option value="{{ years[1] }}">{{ years[1] }}</option>
+                  <option value="{{ years[2] }}">{{ years[2] }}</option>
+               </select>
+            </div>
+
+            <div class="form-group">
+               <label for="newYear">To Year:</label><br>
+               <select id="newYear" name="newYear" class="form-control" required>
+                  <option disabled value selected>select a year</option>
+                  <option value="{{ years[0] }}">{{ years[0] }}</option>
+                  <option value="{{ years[1] }}">{{ years[1] }}</option>
+                  <option value="{{ years[2] }}">{{ years[2] }}</option>
+               </select>
             </div>
 
             <button type="submit" class="btn btn-primary">Import</button>
          </form>
+
+         <a type="button" href="/events" class="btn btn-secondary">See Events</a>
       </div>
    </div>
 
-
+</div>
 {% endblock %}
