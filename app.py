@@ -17,7 +17,7 @@ app.config["SECRET_KEY"] = os.environ['SECRET_KEY']
 app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(days=90)
 
 
-# require app to always redirect to https
+# modify the request url to use 'https'
 # SSL cert is provided by Heroku
 # @app.before_request
 # def before_request():
@@ -31,9 +31,9 @@ app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(days=90)
 # Ensure responses aren't cached
 @app.after_request
 def after_request(response):
-    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-    response.headers["Expires"] = 0
-    response.headers["Pragma"] = "no-cache"
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate" # server side cache control (I think)
+    response.headers["Expires"] = 0 # browser side cache control (I think)
+    response.headers["Pragma"] = "no-cache" # ?
     return response
 
 

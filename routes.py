@@ -441,13 +441,9 @@ def register():
      # if user submitted register request:
     if request.method == "POST":
 
-        # check if username and password were submitted
-        if not request.form.get("username") or not request.form.get("password"):
-            return render_template("messages.html", code=400 , message="Please provide username and password"), 400
-
-        # check if name submitted
-        elif not request.form.get("first_name"):
-            return render_template("messages.html", code=400 , message="Please provide name"), 400
+        # check if username, password, and name were submitted
+        if not request.form.get("username") or not request.form.get("password") or not request.form.get("first_name"):
+            return render_template("messages.html", code=400 , message="Missing required info"), 400
 
          # check if password matches requirements
         elif len(request.form.get("password")) < 8 or len(request.form.get("password")) > 16 or not re.search('[0-9]', request.form.get("password")) or not re.search('[a-zA-Z]', request.form.get("password")):
@@ -456,7 +452,7 @@ def register():
         # check if username already exists in database
         exists = Users.query.filter_by(username=request.form.get("username")).first()
         if exists:
-            return render_template("messages.html", code=400 , message="Sorry, that username is taken, please choose something else"), 400
+            return render_template("messages.html", code=400 , message="It looks like you already registered with that email, please sign in."), 400
 
         # store all user info in database, initialize approval to False
         first_name = request.form.get("first_name")
@@ -473,7 +469,6 @@ def register():
             return render_template("messages.html", code=500 , message="Sorry, something went wrong on the server, we couldn't save your info"), 500
 
         # send message telling user to wait for approval
-        # javascript will 'redirect' to another page and display message
         return render_template("messages.html", code='Success' , message="Thanks for registering, your info is saved, and you will be able to login as soon as you are approved. If you haven't yet, contact Kenneth so he can give you access."), 200
 
     else:
@@ -499,14 +494,12 @@ def login():
 
         # Ensure username and password were submitted
         if not request.form.get("username") or not request.form.get("password"):
-            return render_template("messages.html", code=400, message="Please provide username and password"), 400
-
-        username = request.form.get("username")
+            return render_template("messages.html", code=400, message="Please provide email and password"), 400
 
         # Query database for username
-        user = Users.query.filter_by(username=username).first()
+        user = Users.query.filter_by(username=request.form.get("username")).first()
         if not user:
-            return render_template("messages.html", code=400, message="Sorry, invalid username"), 400
+            return render_template("messages.html", code=400, message="Sorry, invalid email"), 400
 
         # Ensure password is correct
         elif not check_password_hash(user.pwd_hash, request.form.get("password")):
